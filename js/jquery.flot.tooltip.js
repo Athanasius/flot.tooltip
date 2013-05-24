@@ -132,11 +132,13 @@
 
     // as the name says
     FlotTooltip.prototype.updateTooltipPosition = function(pos) {
-        if (pos.x > ($(document).width() - 2 * $("#flotTip").width() - this.tooltipOptions.shifts.x)) {
-                pos.x -= ($("#flotTip").width() + 2 * this.tooltipOptions.shifts.x);
+		var totalTipWidth = $("#flotTip").width() + 3 * this.tooltipOptions.shifts.x;
+		var totalTipHeight = $("#flotTip").height() + 2 * this.tooltipOptions.shifts.y;
+        if ((pos.x - $(window).scrollLeft()) > ($(window).innerWidth() - totalTipWidth)) {
+            pos.x -= totalTipWidth;
         }
-        if (pos.y > ($(document).height() - 2 * $("#flotTip").width() - this.tooltipOptions.shifts.y)) {
-            pos.y -= ($("#flotTip").height() + 2 * this.tooltipOptions.shifts.y);
+        if ((pos.y - $(window).scrollTop()) > ($(window).innerHeight() - totalTipHeight)) {
+            pos.y -= totalTipHeight;
         }
         this.tipPosition.x = pos.x;
         this.tipPosition.y = pos.y;
